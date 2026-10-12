@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAI NCOE Trivandrum | Athlete Nutrition & Hydration</title>
+
+<!-- Firebase App (Core SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<!-- Firestore Database SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    /* Sports Nutrition - Athletes with Healthy Nutrition & Meal Prep */
+    background: linear-gradient(rgba(243, 246, 250, 0.90), rgba(243, 246, 250, 0.92)), 
+                url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
+    color: #172033;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+}
+/* =========================================================
+   SUBTLE ANIMATIONS (FADE-IN & SLIDE)
+========================================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section:not(.hidden), .card, .athlete-banner {
+    animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+.header{
+    background:linear-gradient(135deg,#071b42,#0b3b82);
+    color:white;
+    padding:14px 22px;
+    box-shadow:0 4px 15px rgba(0,0,0,.18);
+}
+
+.header-inner{
+    max-width:1450px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.sai-logo img {
+    height: 65px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.institution h1{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:.3px;
+    margin-bottom:4px;
+}
+
+.institution h2{
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:3px;
+}
+
+.institution p{
+    font-size:13px;
+    opacity:.92;
+}
+
+.department{
+    text-align:right;
+    border-left:1px solid rgba(255,255,255,.35);
+    padding-left:25px;
+}
+
+.department strong{
+    display:block;
+    font-size:15px;
+    color:#ffd96b;
+    margin-bottom:4px;
+}
+
+.department span{
+    font-size:13px;
+}
+
+.clock{
+    margin-top:6px;
+    font-size:12px;
+    opacity:.85;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+.container{
+    max-width:1450px;
+    margin:25px auto;
+    padding:0 18px;
+}
+
+.page-title{
+    margin-bottom:20px;
+}
+
+.page-title h2{
+    font-size:26px;
+    color:#092f6b;
+}
+
+.page-title p{
+    color:#667085;
+    margin-top:5px;
+}
+
+/* =========================================================
+   CARDS & GRIDS
+========================================================= */
+.card{
+    background:rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(4px);
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 4px 16px rgba(24,39,75,.08);
+    border:1px solid #e5eaf1;
+    margin-bottom:20px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(24,39,75,.12);
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:800;
+    color:#0a397d;
+    margin-bottom:15px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:1fr 1.35fr;
+    gap:20px;
+}
+
+.admin-grid{
+    display:grid;
+    grid-template-columns:.75fr 1.25fr;
+    gap:20px;
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS (LAPTOP, TABLET, MOBILE)
+========================================================= */
+@media(max-width:1200px){
+    .container{
+        padding:0 15px;
+    }
+}
+
+@media(max-width:1024px){
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+    .admin-grid{ 
+        grid-template-columns:1fr; 
+    }
+}
+
+@media(max-width:950px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+    .header-inner{
+        flex-direction:column;
+        text-align:center;
+    }
+    .brand-left{
+        flex-direction:column;
+        text-align:center;
+    }
+    .department{
+        border-left:none;
+        border-top:1px solid rgba(255,255,255,.3);
+        padding-left:0;
+        padding-top:12px;
+        text-align:center;
+    }
+}
+
+@media(max-width:600px){
+    .container{
+        margin:15px auto;
+        padding:0 10px;
+    }
+    .card{
+        padding:15px;
+        border-radius:10px;
+    }
+    .page-title h2{
+        font-size:20px;
+    }
+    .institution h1{
+        font-size:18px;
+    }
+    .institution h2{
+        font-size:14px;
+    }
+    .athlete-banner{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+    .urine-grid{
+        grid-template-columns:repeat(4,1fr);
+        gap:6px;
+    }
+    .urine-btn{
+        padding:10px 2px;
+        font-size:12px;
+    }
+    button{
+        padding:12px 14px;
+        font-size:15px;
+    }
+}
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
+label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    color:#344054;
+    margin-bottom:7px;
+}
+
+select,
+input,
+textarea{
+    width:100%;
+    padding:12px 13px;
+    border:1px solid #cfd7e3;
+    border-radius:9px;
+    font-size:14px;
+    outline:none;
+    background:white;
+    margin-bottom:12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:focus,
+input:focus,
+textarea:focus{
+    border-color:#1769d2;
+    box-shadow:0 0 0 3px rgba(23,105,210,.10);
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+button{
+    border:none;
+    cursor:pointer;
+    border-radius:9px;
+    padding:11px 16px;
+    font-size:14px;
+    font-weight:700;
+    transition:all .2s ease;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    filter: brightness(1.05);
+}
+
+.btn-primary{ background:#0b4ea2; color:white; }
+.btn-success{ background:#15803d; color:white; }
+.btn-warning{ background:#d97706; color:white; }
+.btn-danger{ background:#c62828; color:white; }
+.btn-secondary{ background:#64748b; color:white; }
+.btn-light{ background:#eef3f8; color:#163b6d; }
+
+/* =========================================================
+   LOGIN & UTILS
+========================================================= */
+.login-box{
+    max-width:550px;
+    margin:30px auto;
+}
+
+.login-icon{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#eaf2ff;
+    color:#0b4ea2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    margin:0 auto 15px;
+    animation: fadeInUp 0.6s ease;
+}
+
+.center{ text-align:center; }
+.hidden{ display:none !important; }
+.small-note{ font-size:12px; color:#667085; margin-top:8px; }
+
+/* =========================================================
+   ATHLETE DASHBOARD
+========================================================= */
+.athlete-banner{
+    background:linear-gradient(135deg,#0b4ea2,#1769d2);
+    color:white;
+    border-radius:14px;
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+    box-shadow: 0 4px 15px rgba(11,78,162,0.2);
+}
+
+.athlete-banner h2{ font-size:23px; }
+.athlete-banner p{ margin-top:4px; opacity:.9; font-size:13px; }
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    background:rgba(255,255,255,.16);
+    font-size:12px;
+    font-weight:700;
+}
+
+/* =========================================================
+   PLAN
+========================================================= */
+.plan-row{
+    display:grid;
+    grid-template-columns:130px 1fr;
+    gap:15px;
+    padding:13px 0;
+    border-bottom:1px solid #edf0f4;
+}
+
+@media(max-width:600px){
+    .plan-row{
+        grid-template-columns:1fr;
+        gap:4px;
+    }
+}
+
+.plan-row:last-child{ border-bottom:none; }
+.plan-label{ font-weight:800; color:#475467; }
+.plan-value{ color:#101828; }
+.plan-current{
+    border-left:5px solid #1769d2;
+    background:#f5f9ff;
+    padding:15px;
+    border-radius:10px;
+}
+
+/* =========================================================
+   HYDRATION
+========================================================= */
+.hydration-panel{ position:sticky; top:15px; }
+
+@media(max-width:1024px){
+    .hydration-panel{ position:relative; top:0; }
+}
+
+.urine-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-top:12px;
+}
+
+.urine-btn{
+    padding:13px 5px;
+    color:white;
+    font-size:13px;
+    font-weight:900;
+    border:3px solid transparent;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.urine-btn:hover{
+    transform: scale(1.05);
+}
+
+.urine-btn.selected{
+    border-color:#111827;
+    box-shadow:0 0 0 2px white inset;
+    transform: scale(1.06);
+}
+
+.u1{background:#f6f6f5; color:#333;}
+.u2{background:#f2edbd; color:#333;}
+.u3{background:#fbf894; color:#333;}
+.u4{background:#edeb65; color:#333;}
+.u5{background:#eee237; color:#333;}
+.u6{background:#eecb1a; color:#333;}
+.u7{background:#f6bc40; color:#333;}
+.u8{background:#f69827; color:#333;}
+
+.status-box{
+    margin-top:15px;
+    padding:13px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:14px;
+    animation: fadeInUp 0.3s ease;
+}
+
+.status-hydrated{
+    background:#e9f8ee;
+    color:#146c35;
+    border:1px solid #b8e4c5;
+}
+
+.status-dehydrated{
+    background:#fff2e6;
+    color:#a14f00;
+    border:1px solid #ffd1a6;
+}
+
+.hydration-caption{
+    font-size:12px;
+    line-height:1.5;
+    margin-top:7px;
+    color:#667085;
+}
+
+/* =========================================================
+   MEALS
+========================================================= */
+.meal-box{
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:15px;
+    margin-top:12px;
+    background:#fbfcfe;
+    transition: all 0.2s ease;
+}
+
+.meal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.meal-name{ font-weight:800; color:#1d3557; }
+.meal-time{ color:#667085; font-size:12px; margin-top:6px; }
+
+.collected{ background:#ecfdf3; border-color:#a7e5bf; }
+.pending{ background:#fffaf0; border-color:#f5d58c; }
+
+/* =========================================================
+   TABLES
+========================================================= */
+.table-wrap{ 
+    overflow-x:auto; 
+    -webkit-overflow-scrolling: touch;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+    min-width: 500px;
+}
+
+th{
+    background:#0b3b82;
+    color:white;
+    padding:11px;
+    text-align:left;
+}
+
+td{
+    border-bottom:1px solid #e5e7eb;
+    padding:10px;
+    vertical-align:top;
+}
+
+tr:nth-child(even) td{ background:#f8fafc; }
+
+/* =========================================================
+   ADMIN
+========================================================= */
+.admin-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+@media(max-width:600px){
+    .admin-top{
+        flex-direction:column;
+        align-items:stretch;
+        text-align:center;
+    }
+}
+
+.notification{
+    border:1px solid #dbe3ec;
+    border-left:5px solid #1769d2;
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:12px;
+    background:white;
+    transition: transform 0.2s ease;
+}
+
+.notification:hover{
+    transform: translateX(3px);
+}
+
+.notification.unread{ background:#f3f8ff; }
+.notification h4{ color:#123b70; margin-bottom:8px; }
+.notification-line{ font-size:13px; margin:4px 0; }
+.notification-actions{ margin-top:10px; display:flex; gap:7px; flex-wrap:wrap; }
+
+.pending-text{ color:#b45309; font-weight:700; }
+.done-text{ color:#15803d; font-weight:700; }
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.footer{
+    margin-top:40px;
+    background:#071b42;
+    color:white;
+    padding:25px 18px;
+}
+
+.footer-inner{ max-width:1450px; margin:auto; text-align:center; }
+.footer-title{ font-size:15px; font-weight:800; margin-bottom:7px; }
+.footer p{ font-size:12px; color:#d7e0ef; margin:5px 0; }
+.footer a{ color:#ffd66b; text-decoration:none; font-weight:700; }
+.footer a:hover{ text-decoration:underline; }
+
+.footer-divider{
+    width:80px;
+    height:2px;
+    background:#e6b94e;
+    margin:12px auto;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#172033;
+    color:white;
+    padding:13px 18px;
+    border-radius:9px;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+    z-index:9999;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+}
+
+.toast.show{ 
+    opacity:1; 
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ======================================================
+     HEADER
+====================================================== -->
+<header class="header">
+    <div class="header-inner">
+        <div class="brand-left">
+            <div class="sai-logo">
+               <img src="logo.jpg" alt="Sports Authority of India Logo" onerror="this.style.display='none'">
+            </div>
+            <div class="institution">
+                <h1>SPORTS AUTHORITY OF INDIA</h1>
+                <h2>NATIONAL CENTRE OF EXCELLENCE (NCOE)</h2>
+                <p>REGIONAL CENTRE, TRIVANDRUM</p>
+                <p>Kariavattom, Thiruvananthapuram, Kerala</p>
+            </div>
+        </div>
+        <div class="department">
+            <strong>DEPARTMENT OF NUTRITION & DIETETICS</strong>
+            <span>Athlete Nutrition & Hydration Management</span>
+            <div class="clock" id="liveClock">Loading time...</div>
+        </div>
+    </div>
+</header>
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+<main class="container">
+    <div class="page-title">
+        <h2>Athlete Nutrition & Hydration Management System</h2>
+        <p>SAI NCOE Trivandrum — Athlete meal collection, hydration monitoring and nutrition plan management</p>
+    </div>
+
+    <!-- START SCREEN -->
+    <section id="startScreen">
+        <div class="card login-box">
+            <div class="login-icon">🏃</div>
+            <div class="center">
+                <div class="card-title">Athlete Login</div>
+                <p class="small-note" style="margin-bottom:18px;">
+                    Select your discipline, choose your athlete name, and enter your ID.
+                </p>
+            </div>
+            <label>Select Discipline</label>
+            <select id="startDisciplineSelect" onchange="filterAthletesByDiscipline()">
+                <option value="">-- Select Discipline --</option>
+            </select>
+
+            <label style="margin-top:12px;">Select Athlete</label>
+            <select id="athleteSelect">
+                <option value="">-- Select Discipline First --</option>
+            </select>
+            <br><br>
+            <button class="btn-primary" style="width:100%;" onclick="continueAthleteLogin()">Continue</button>
+            <br><br>
+            <button class="btn-secondary" style="width:100%;" onclick="showAdminLogin()">👨‍💼 Admin Login</button>
+        </div>
+    </section>
+
+    <!-- ATHLETE PASSWORD -->
+    <section id="athleteLoginScreen" class="hidden">
+        <div class="card login-box">
+            <div class="login-icon">🔐</div>
+            <div class="center">
+                <div class="card-title">Athlete Verification</div>
+                <p id="selectedAthleteText" style="margin-bottom:15px;"></p>
+            </div>
+            <label>Athlete ID / Password</label>
+            <input id="athletePassword" type="password" placeholder="" autocomplete="off">
+            <br><br>
+            <button class="btn-primary" style="width:100%;" onclick="verifyAthlete()">Login</button>
+            <br><br>
+            <button class="btn-light" style="width:100%;" onclick="backToStart()">← Back</button>
+        </div>
+    </section>
+
+    <!-- ATHLETE DASHBOARD -->
+    <section id="athleteDashboard" class="hidden">
+        <div class="athlete-banner">
+            <div>
+                <h2 id="athleteWelcome">Welcome</h2>
+                <p id="athleteDetails"></p>
+            </div>
+            <div>
+                <span class="badge" id="sessionBadge"></span>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- LEFT SIDE: HYDRATION FIRST -->
+            <div>
+                <div class="card hydration-panel">
+                    <div class="card-title">💧 Hydration Monitoring</div>
+                    <p style="font-size:13px;color:#667085;">Select today's urine colour.</p>
+                    <div class="urine-grid">
+                        <button class="urine-btn u1" data-value="1" onclick="selectHydration(1)">1</button>
+                        <button class="urine-btn u2" data-value="2" onclick="selectHydration(2)">2</button>
+                        <button class="urine-btn u3" data-value="3" onclick="selectHydration(3)">3</button>
+                        <button class="urine-btn u4" data-value="4" onclick="selectHydration(4)">4</button>
+                        <button class="urine-btn u5" data-value="5" onclick="selectHydration(5)">5</button>
+                        <button class="urine-btn u6" data-value="6" onclick="selectHydration(6)">6</button>
+                        <button class="urine-btn u7" data-value="7" onclick="selectHydration(7)">7</button>
+                        <button class="urine-btn u8" data-value="8" onclick="selectHydration(8)">8</button>
+                    </div>
+                    <div id="hydrationStatus"></div>
+                    <button id="confirmHydrationBtn" class="btn-success hidden" style="width:100%;margin-top:12px;" onclick="confirmHydration()">
+                        ✓ Confirm Hydration
+                    </button>
+                    <hr style="margin:20px 0;border:none;border-top:1px solid #e5e7eb;">
+                    <div style="font-size:13px;line-height:1.6;color:#475467;">
+                        <strong>Hydration Guide</strong>
+                        <p style="margin-top:6px;"><b>1–3:</b> Hydrated — pale/straw urine generally indicates good hydration.</p>
+                        <p style="margin-top:7px;"><b>4–8:</b> Dehydrated — darker/strong-smelling urine can indicate a need for more fluid.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: NUTRITION PLAN & MEAL COLLECTION -->
+            <div>
+                <div class="card">
+                    <!-- Updated heading to dynamically display the day name -->
+                    <div class="card-title" id="todayPlanTitle">📋 Today's Nutrition & Training Plan</div>
+                    <div id="todayPlan" class="plan-current"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🍽️ Meal Collection</div>
+                    <div id="preMealBox" class="meal-box"></div>
+                    <div id="postMealBox" class="meal-box"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📅 Full 7-Day Plan</div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Training</th>
+                                    <th>Pre-Workout Meal</th>
+                                    <th>Post-Workout Meal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="weeklyPlanTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="center" style="margin-top: 20px;">
+            <button class="btn-secondary" onclick="logout()">Logout</button>
+        </div>
+    </section>
+
+    <!-- ADMIN LOGIN -->
+    <section id="adminLoginScreen" class="hidden">
+        <div class="card login-box">
+            <div class="login-icon">👨‍💼</div>
+            <div class="center">
+                <div class="card-title">Admin Login</div>
+            </div>
+            <label>Admin Password</label>
+            <input id="adminPassword" type="password" placeholder="Enter admin password">
+            <br><br>
+            <button class="btn-primary" style="width:100%;" onclick="verifyAdmin()">Login</button>
+            <br><br>
+            <button class="btn-light" style="width:100%;" onclick="backToStart()">← Back</button>
+        </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD -->
+    <section id="adminDashboard" class="hidden">
+        <div class="admin-top">
+            <div>
+                <h2 style="color:#0b3b82;">👨‍💼 Nutrition Department Dashboard</h2>
+                <p style="font-size:13px;color:#667085;margin-top:4px;">
+                    Monitor athlete hydration, meals and manage individual nutrition plans.
+                </p>
+            </div>
+            <button class="btn-secondary" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="admin-grid">
+            <!-- NOTIFICATIONS -->
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px;">
+                    <div class="card-title" style="margin:0;">🔔 Athlete Notifications</div>
+                    <button class="btn-light" onclick="clearNotifications()">Clear All</button>
+                </div>
+                <div id="notificationList"></div>
+            </div>
+
+            <!-- PLAN EDITOR & ADD/REMOVE ATHLETE -->
+            <div>
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-title">➕ Add New Athlete Profile & Password</div>
+                    <label>Athlete Name</label>
+                    <input id="newAthleteName" type="text" placeholder="e.g. Ranjithkumar S">
+                    <label>Athlete ID / Password</label>
+                    <input id="newAthleteId" type="text" placeholder="e.g. MTECH">
+                    <label>Sport / Discipline</label>
+                    <select id="newAthleteSport">
+                        <option value="">-- Select Discipline --</option>
+                        <option value="Sports_Technology">Sports_Technology</option>
+                        <option value="Athletics">Athletics</option>
+                        <option value="Cycling">Cycling</option>
+                        <option value="Football">Football</option>
+                        <option value="Taekwondo">Taekwondo</option>
+                        <option value="Volleyball">Volleyball</option>
+                        <option value="Fencing">Fencing</option>
+                    </select>
+                    <button class="btn-success" style="width:100%; margin-top:5px;" onclick="addNewAthleteProfile()">
+                        Save New Athlete Profile
+                    </button>
+                    <div id="addAthleteMessage" class="small-note"></div>
+                </div>
+
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-title">❌ Remove Athlete Profile</div>
+                    <label>Filter by Discipline</label>
+                    <select id="adminFilterDiscipline" onchange="filterAdminAthletes()">
+                        <option value="">-- All Disciplines --</option>
+                    </select>
+                    <label style="margin-top:10px;">Select Athlete</label>
+                    <select id="adminAthleteSelect"></select>
+                    <button class="btn-danger" style="width:100%; margin-top:5px;" onclick="removeSelectedAthlete()">
+                        🗑️ Remove Selected Athlete Profile
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📝 Athlete Nutrition Plan Editor</div>
+                    <label>Filter by Discipline</label>
+                    <select id="adminFilterDiscipline2" onchange="filterAdminAthletes2()">
+                        <option value="">-- All Disciplines --</option>
+                    </select>
+                    <label style="margin-top:10px;">Select Athlete</label>
+                    <select id="adminAthleteSelect2"></select>
+                    <label>Select Day</label>
+                    <select id="adminDaySelect">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                    <label>Training Plan</label>
+                    <input id="editTraining" placeholder="Training plan">
+                    <label>Pre-Workout Meal</label>
+                    <textarea id="editPre" placeholder="Pre-workout meal"></textarea>
+                    <label>Post-Workout Meal</label>
+                    <textarea id="editPost" placeholder="Post-workout meal"></textarea>
+                    <button class="btn-success" style="width:100%;" onclick="savePlan()">💾 Save Athlete Plan</button>
+                    <div id="savePlanMessage" class="small-note"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📅 Selected Athlete Weekly Plan</div>
+            <div class="table-wrap" id="adminWeeklyPlan"></div>
+        </div>
+    </section>
+</main>
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-title">SPORTS AUTHORITY OF INDIA — NCOE TRIVANDRUM</div>
+        <p>Athlete Nutrition & Hydration Management System</p>
+        <div class="footer-divider"></div>
+        <p>© 2026 Sports Authority of India. All Rights Reserved.</p>
+        <p>Designed & Developed by <strong>Ranjithkumar S</strong></p>
+        <p>
+            <a href="https://scholar.google.com/citations?user=qzsyLnMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
+                🎓 Google Scholar — Ranjithkumar S
+            </a>
+        </p>
+        <p>
+            <a href="https://sportsauthorityofindia.nic.in/sai_new/" target="_blank" rel="noopener noreferrer">
+                Official Sports Authority of India Website
+            </a>
+        </p>
+    </div>
+</footer>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<!-- ======================================================
+     JAVASCRIPT LOGIC (FIRESTORE REAL-TIME SYNC)
+====================================================== -->
+<script>
+/* =========================================================
+   FIREBASE INITIALIZATION
+========================================================= */
+const firebaseConfig = {
+    apiKey: "AIzaSyBgzES-oQq_Xqfg0n6gNecxuiNaIEXgr7o",
+    authDomain: "sai-athlete-meal-system.firebaseapp.com",
+    projectId: "sai-athlete-meal-system",
+    storageBucket: "sai-athlete-meal-system.firebasestorage.app",
+    messagingSenderId: "306855877538",
+    appId: "1:306855877538:web:0461e6e2effb3428d7f0fb"
+};
+
+let db = null;
+try {
+    if (typeof firebase !== 'undefined' && firebase.apps && !firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+    }
+} catch (e) {
+    console.warn("Firebase initialization failed.", e);
+}
+
+/* =========================================================
+   APPLICATION DATA & STATE
+========================================================= */
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+let athletes = {};
+let mealPlans = {};
+let notifications = [];
+
+let currentAthleteId = null;
+let currentHydration = null;
+
+// Realtime Firebase Listeners
+function initRealtimeListeners() {
+    if (!db) {
+        showToast("Offline Mode: Database not connected.");
+        loadDefaultFallback();
+        return;
+    }
+
+    // 1. Listen to Athletes collection
+    db.collection("athletes").onSnapshot(snapshot => {
+        athletes = {};
+        snapshot.forEach(doc => {
+            athletes[doc.id] = doc.data();
+        });
+        if(Object.keys(athletes).length === 0){
+            const defaultAthlete = { id: "MTECH", name: "Ranjithkumar S", sport: "Sports_Technology" };
+            db.collection("athletes").doc("MTECH").set(defaultAthlete);
+        }
+        populateAthleteSelects();
+        if(currentAthleteId && !athletes[currentAthleteId]) logout();
+    }, err => console.error("Athletes sync error:", err));
+
+    // 2. Listen to Meal Plans collection
+    db.collection("mealPlans").onSnapshot(snapshot => {
+        mealPlans = {};
+        snapshot.forEach(doc => {
+            mealPlans[doc.id] = doc.data().days || {};
+        });
+        if(currentAthleteId && !document.getElementById("athleteDashboard").classList.contains("hidden")){
+            updateAthleteDashboard();
+        }
+        displayAdminWeeklyPlan();
+    }, err => console.error("MealPlans sync error:", err));
+
+    // 3. Listen to Notifications collection
+    db.collection("notifications").orderBy("createdAtTimestamp", "desc").onSnapshot(snapshot => {
+        notifications = [];
+        snapshot.forEach(doc => {
+            notifications.push({ firebaseId: doc.id, ...doc.data() });
+        });
+        refreshNotifications();
+    }, err => console.error("Notifications sync error:", err));
+}
+
+function loadDefaultFallback(){
+    athletes = { "MTECH": { id: "MTECH", name: "Ranjithkumar S", sport: "Sports_Technology" } };
+    mealPlans["MTECH"] = createDefaultPlans();
+    populateAthleteSelects();
+}
+
+function createDefaultPlans(){
+    const p = {};
+    days.forEach(day => {
+        p[day] = {
+            training: "Regular Training",
+            pre: "Banana + Oats + Milk + Water",
+            post: "Protein-rich meal + Fruits + Water"
+        };
+    });
+    return p;
+}
+
+/* =========================================================
+   DATE / TIME & CLOCK
+========================================================= */
+function getCurrentDay(){
+    return days[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1];
+}
+
+function formatTime(date = new Date()){
+    return date.toLocaleTimeString("en-IN", { hour:"2-digit", minute:"2-digit" });
+}
+
+function formatDateTime(date = new Date()){
+    return date.toLocaleString("en-IN", { day:"2-digit", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" });
+}
+
+function getCurrentSession(){
+    const hour = new Date().getHours();
+    return (hour >= 4 && hour < 12) ? "Morning Session" : "Evening Session";
+}
+
+function updateClock(){
+    const clockEl = document.getElementById("liveClock");
+    if(clockEl) clockEl.textContent = formatDateTime();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+/* =========================================================
+   UI POPULATION & SELECTS (DISCIPLINE FILTERING)
+========================================================= */
+function populateAthleteSelects(){
+    populateDisciplineDropdowns();
+    filterAthletesByDiscipline();
+    filterAdminAthletes();
+    filterAdminAthletes2();
+}
+
+function populateDisciplineDropdowns(){
+    const disciplines = new Set();
+    Object.values(athletes).forEach(a => {
+        if(a.sport) disciplines.add(a.sport);
+    });
+
+    const startDisc = document.getElementById("startDisciplineSelect");
+    const adminDisc1 = document.getElementById("adminFilterDiscipline");
+    const adminDisc2 = document.getElementById("adminFilterDiscipline2");
+
+    const currentStartVal = startDisc ? startDisc.value : "";
+    const currentAdmin1Val = adminDisc1 ? adminDisc1.value : "";
+    const currentAdmin2Val = adminDisc2 ? adminDisc2.value : "";
+
+    if(startDisc) startDisc.innerHTML = '<option value="">-- Select Discipline --</option>';
+    if(adminDisc1) adminDisc1.innerHTML = '<option value="">-- All Disciplines --</option>';
+    if(adminDisc2) adminDisc2.innerHTML = '<option value="">-- All Disciplines --</option>';
+
+    Array.from(disciplines).sort().forEach(disc => {
+        if(startDisc){
+            const opt = document.createElement("option");
+            opt.value = disc;
+            opt.textContent = disc;
+            startDisc.appendChild(opt);
+        }
+        if(adminDisc1){
+            const opt = document.createElement("option");
+            opt.value = disc;
+            opt.textContent = disc;
+            adminDisc1.appendChild(opt);
+        }
+        if(adminDisc2){
+            const opt = document.createElement("option");
+            opt.value = disc;
+            opt.textContent = disc;
+            adminDisc2.appendChild(opt);
+        }
+    });
+
+    if(startDisc) startDisc.value = currentStartVal;
+    if(adminDisc1) adminDisc1.value = currentAdmin1Val;
+    if(adminDisc2) adminDisc2.value = currentAdmin2Val;
+}
+
+function filterAthletesByDiscipline(){
+    const selectedDisc = document.getElementById("startDisciplineSelect").value;
+    const athleteSelect = document.getElementById("athleteSelect");
+    if(!athleteSelect) return;
+
+    athleteSelect.innerHTML = '<option value="">-- Select Athlete --</option>';
+
+    Object.keys(athletes).forEach(id => {
+        const athlete = athletes[id];
+        if(!selectedDisc || athlete.sport === selectedDisc){
+            const opt = document.createElement("option");
+            opt.value = id;
+            opt.textContent = athlete.name; // Only athlete name shown
+            athleteSelect.appendChild(opt);
+        }
+    });
+}
+
+function filterAdminAthletes(){
+    const selectedDisc = document.getElementById("adminFilterDiscipline").value;
+    const adminSelect = document.getElementById("adminAthleteSelect");
+    if(!adminSelect) return;
+
+    adminSelect.innerHTML = '<option value="">-- Select Athlete --</option>';
+
+    Object.keys(athletes).forEach(id => {
+        const athlete = athletes[id];
+        if(!selectedDisc || athlete.sport === selectedDisc){
+            const opt = document.createElement("option");
+            opt.value = id;
+            opt.textContent = `${athlete.name} — ${id} — ${athlete.sport}`;
+            adminSelect.appendChild(opt);
+        }
+    });
+}
+
+function filterAdminAthletes2(){
+    const selectedDisc = document.getElementById("adminFilterDiscipline2").value;
+    const adminSelect2 = document.getElementById("adminAthleteSelect2");
+    if(!adminSelect2) return;
+
+    adminSelect2.innerHTML = '<option value="">-- Select Athlete --</option>';
+
+    Object.keys(athletes).forEach(id => {
+        const athlete = athletes[id];
+        if(!selectedDisc || athlete.sport === selectedDisc){
+            const opt = document.createElement("option");
+            opt.value = id;
+            opt.textContent = `${athlete.name} — ${id} — ${athlete.sport}`;
+            adminSelect2.appendChild(opt);
+        }
+    });
+    loadPlanForEditing();
+}
+
+/* =========================================================
+   NAVIGATION & SCREENS
+========================================================= */
+function hideAllScreens(){
+    ["startScreen", "athleteLoginScreen", "athleteDashboard", "adminLoginScreen", "adminDashboard"].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.classList.add("hidden");
+    });
+}
+
+function backToStart(){
+    hideAllScreens();
+    document.getElementById("startScreen").classList.remove("hidden");
+}
+
+function logout(){
+    currentAthleteId = null;
+    currentHydration = null;
+    document.getElementById("athletePassword").value = "";
+    document.getElementById("adminPassword").value = "";
+    hideAllScreens();
+    document.getElementById("startScreen").classList.remove("hidden");
+}
+
+/* =========================================================
+   ATHLETE LOGIN & DASHBOARD
+========================================================= */
+function continueAthleteLogin(){
+    const id = document.getElementById("athleteSelect").value;
+    if(!id){
+        showToast("Please select an athlete.");
+        return;
+    }
+    currentAthleteId = id;
+    const athlete = athletes[id];
+    document.getElementById("selectedAthleteText").textContent = `${athlete.name} | ${athlete.sport}`;
+    hideAllScreens();
+    document.getElementById("athleteLoginScreen").classList.remove("hidden");
+}
+
+function verifyAthlete(){
+    const password = document.getElementById("athletePassword").value.trim().toUpperCase();
+    if(password !== currentAthleteId){
+        showToast("Invalid password. Use your Athlete ID.");
+        return;
+    }
+    openAthleteDashboard();
+}
+
+function openAthleteDashboard(){
+    hideAllScreens();
+    document.getElementById("athleteDashboard").classList.remove("hidden");
+    updateAthleteDashboard();
+}
+
+function updateAthleteDashboard(){
+    if(!currentAthleteId) return;
+    const athlete = athletes[currentAthleteId];
+    const day = getCurrentDay();
+
+    if(!mealPlans[currentAthleteId]){
+        mealPlans[currentAthleteId] = createDefaultPlans();
+    }
+
+    const plan = mealPlans[currentAthleteId][day] || { training: "", pre: "", post: "" };
+
+    document.getElementById("athleteWelcome").textContent = "Welcome, " + athlete.name;
+    document.getElementById("athleteDetails").textContent = athlete.sport + " | " + day;
+    document.getElementById("sessionBadge").textContent = getCurrentSession();
+
+    // Dynamically update the card title to include the current day
+    const todayPlanTitleEl = document.getElementById("todayPlanTitle");
+    if(todayPlanTitleEl) {
+        todayPlanTitleEl.textContent = `📋 Today's Nutrition & Training Plan (${day})`;
+    }
+
+    document.getElementById("todayPlan").innerHTML = `
+        <div class="plan-row"><div class="plan-label">Training</div><div class="plan-value">${escapeHTML(plan.training)}</div></div>
+        <div class="plan-row"><div class="plan-label">Pre-Workout Meal</div><div class="plan-value">${escapeHTML(plan.pre)}</div></div>
+        <div class="plan-row"><div class="plan-label">Post-Workout Meal</div><div class="plan-value">${escapeHTML(plan.post)}</div></div>
+    `;
+
+    renderWeeklyPlan();
+    fetchAndRenderAthleteDailyState();
+}
+
+function renderWeeklyPlan(){
+    const tbody = document.getElementById("weeklyPlanTable");
+    if(!tbody) return;
+    tbody.innerHTML = "";
+
+    days.forEach(day => {
+        const plan = mealPlans[currentAthleteId][day] || { training: "", pre: "", post: "" };
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><strong>${day}</strong></td>
+            <td>${escapeHTML(plan.training)}</td>
+            <td>${escapeHTML(plan.pre)}</td>
+            <td>${escapeHTML(plan.post)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+/* =========================================================
+   MEALS & HYDRATION CLOUD SYNC
+========================================================= */
+function fetchAndRenderAthleteDailyState(){
+    if (!db || !currentAthleteId) return;
+    const docId = `${currentAthleteId}_${getCurrentDay()}`;
+    
+    db.collection("dailyLogs").doc(docId).get().then(doc => {
+        const data = doc.exists ? doc.data() : { preMeal: null, postMeal: null, hydration: null };
+        renderMealBoxesUI(data);
+        renderHydrationUI(data.hydration);
+    }).catch(err => console.error("Error fetching daily logs:", err));
+}
+
+function renderMealBoxesUI(data){
+    const preBox = document.getElementById("preMealBox");
+    const postBox = document.getElementById("postMealBox");
+    if(!preBox || !postBox) return;
+
+    if(data.preMeal){
+        preBox.className = "meal-box collected";
+        preBox.innerHTML = `
+            <div class="meal-header"><div class="meal-name">🥗 Pre-Meal</div><span class="badge" style="background:#15803d;color:white;">Collected</span></div>
+            <div class="meal-time">Collected at ${data.preMeal}</div>
+        `;
+    } else {
+        preBox.className = "meal-box pending";
+        preBox.innerHTML = `
+            <div class="meal-header"><div class="meal-name">🥗 Pre-Meal</div><button class="btn-success" onclick="collectMeal('Pre-Workout Meal')">✓ Collect</button></div>
+            <div class="meal-time">Click after receiving the planned pre-workout meal.</div>
+        `;
+    }
+
+    if(data.postMeal){
+        postBox.className = "meal-box collected";
+        postBox.innerHTML = `
+            <div class="meal-header"><div class="meal-name">🍱 Post-Meal</div><span class="badge" style="background:#15803d;color:white;">Collected</span></div>
+            <div class="meal-time">Collected at ${data.postMeal}</div>
+        `;
+    } else {
+        postBox.className = "meal-box pending";
+        postBox.innerHTML = `
+            <div class="meal-header"><div class="meal-name">🍱 Post-Meal</div><button class="btn-warning" onclick="collectMeal('Post-Workout Meal')">✓ Collect</button></div>
+            <div class="meal-time">Click after receiving the planned post-workout meal.</div>
+        `;
+    }
+}
+
+function collectMeal(type){
+    if(!db) return;
+    const docId = `${currentAthleteId}_${getCurrentDay()}`;
+    const time = formatTime();
+    const logRef = db.collection("dailyLogs").doc(docId);
+
+    db.runTransaction(transaction => {
+        return transaction.get(logRef).then(doc => {
+            const data = doc.exists ? doc.data() : { preMeal: null, postMeal: null, hydration: null };
+            if(type === "Pre-Workout Meal") data.preMeal = time;
+            if(type === "Post-Workout Meal") data.postMeal = time;
+            transaction.set(logRef, data, { merge: true });
+            return data;
+        });
+    }).then(updatedData => {
+        showToast(type + " collection recorded.");
+        renderMealBoxesUI(updatedData);
+        syncNotificationToCloud(updatedData);
+    }).catch(err => console.error("Transaction failed:", err));
+}
+
+function selectHydration(value){
+    currentHydration = value;
+    document.querySelectorAll(".urine-btn").forEach(btn => btn.classList.remove("selected"));
+    const selected = document.querySelector(`.urine-btn[data-value="${value}"]`);
+    if(selected) selected.classList.add("selected");
+
+    const status = value <= 3 ? "Hydrated" : "Dehydrated";
+    const caption = value <= 3 ? "Pale/straw urine generally indicates good hydration." : "Dark/strong-smelling urine can indicate a need for more fluid.";
+
+    document.getElementById("hydrationStatus").innerHTML = `
+        <div class="status-box ${value <= 3 ? "status-hydrated" : "status-dehydrated"}">
+            💧 ${status}<br><span style="font-size:12px;">Urine Colour: ${value}</span>
+            <div class="hydration-caption">${caption}</div>
+        </div>
+    `;
+    document.getElementById("confirmHydrationBtn").classList.remove("hidden");
+}
+
+function confirmHydration(){
+    if(!currentHydration || !db){
+        showToast("Please select urine colour first.");
+        return;
+    }
+    const docId = `${currentAthleteId}_${getCurrentDay()}`;
+    const status = currentHydration <= 3 ? "Hydrated" : "Dehydrated";
+    const hydrationData = { value: currentHydration, status: status, time: formatTime(), date: formatDateTime() };
+
+    db.collection("dailyLogs").doc(docId).set({ hydration: hydrationData }, { merge: true }).then(() => {
+        showToast("Hydration status confirmed.");
+        renderHydrationUI(hydrationData);
+        db.collection("dailyLogs").doc(docId).get().then(doc => {
+            if(doc.exists) syncNotificationToCloud(doc.data());
+        });
+    }).catch(err => console.error("Hydration save error:", err));
+}
+
+function renderHydrationUI(saved){
+    currentHydration = saved ? saved.value : null;
+    document.querySelectorAll(".urine-btn").forEach(btn => btn.classList.remove("selected"));
+
+    if(saved){
+        const selected = document.querySelector(`.urine-btn[data-value="${saved.value}"]`);
+        if(selected) selected.classList.add("selected");
+        document.getElementById("hydrationStatus").innerHTML = `
+            <div class="status-box ${saved.status === "Hydrated" ? "status-hydrated" : "status-dehydrated"}">
+                💧 ${saved.status}<br><span style="font-size:12px;">Urine Colour: ${saved.value}</span>
+                <div class="hydration-caption">Confirmed at ${saved.time}</div>
+            </div>
+        `;
+        document.getElementById("confirmHydrationBtn").classList.remove("hidden");
+    } else {
+        document.getElementById("hydrationStatus").innerHTML = "";
+        document.getElementById("confirmHydrationBtn").classList.add("hidden");
+    }
+}
+
+/* =========================================================
+   CLOUD NOTIFICATIONS SYNC
+========================================================= */
+function syncNotificationToCloud(dailyData){
+    if(!db || !currentAthleteId) return;
+    const hydration = dailyData.hydration;
+    const meals = dailyData;
+    if(!hydration || !meals.preMeal) return;
+
+    const dateKey = `${currentAthleteId}_${getCurrentDay()}`;
+    const athlete = athletes[currentAthleteId];
+    const notifId = dateKey;
+
+    const notificationPayload = {
+        dateKey: dateKey,
+        athleteId: currentAthleteId,
+        athleteName: athlete.name,
+        sport: athlete.sport,
+        training: mealPlans[currentAthleteId][getCurrentDay()].training,
+        hydration: { status: hydration.status, colour: hydration.value, time: hydration.time },
+        preMeal: { status: "Pre-Meal Collected", time: meals.preMeal },
+        postMeal: { status: meals.postMeal ? "Post-Meal Collected" : "Post-Meal Pending", time: meals.postMeal || null },
+        read: false,
+        createdAt: formatDateTime(),
+        createdAtTimestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    db.collection("notifications").doc(notifId).set(notificationPayload, { merge: true })
+      .catch(err => console.error("Notification sync error:", err));
+}
+
+/* =========================================================
+   ADMIN PANEL & PLAN EDITOR
+========================================================= */
+function showAdminLogin(){
+    hideAllScreens();
+    document.getElementById("adminLoginScreen").classList.remove("hidden");
+}
+
+function verifyAdmin(){
+    const password = document.getElementById("adminPassword").value.trim();
+    if(password !== "ADMIN@2026"){
+        showToast("Invalid admin password.");
+        return;
+    }
+    hideAllScreens();
+    document.getElementById("adminDashboard").classList.remove("hidden");
+    loadPlanForEditing();
+    displayAdminWeeklyPlan();
+}
+
+function addNewAthleteProfile(){
+    const nameInput = document.getElementById("newAthleteName").value.trim();
+    const idInput = document.getElementById("newAthleteId").value.trim().toUpperCase();
+    const sportInput = document.getElementById("newAthleteSport").value.trim();
+    const msgElement = document.getElementById("addAthleteMessage");
+
+    if(!nameInput || !idInput || !sportInput){
+        msgElement.style.color = "#c62828";
+        msgElement.textContent = "Please fill in all athlete details and select a sport/discipline.";
+        return;
+    }
+
+    const newAthlete = { id: idInput, name: nameInput, sport: sportInput };
+    const defaultDays = createDefaultPlans();
+
+    Promise.all([
+        db.collection("athletes").doc(idInput).set(newAthlete),
+        db.collection("mealPlans").doc(idInput).set({ days: defaultDays })
+    ]).then(() => {
+        document.getElementById("newAthleteName").value = "";
+        document.getElementById("newAthleteId").value = "";
+        document.getElementById("newAthleteSport").value = "";
+        msgElement.style.color = "#15803d";
+        msgElement.textContent = "✓ Successfully added athlete " + nameInput;
+        showToast("New athlete profile created successfully!");
+    }).catch(err => {
+        msgElement.style.color = "#c62828";
+        msgElement.textContent = "Error adding athlete: " + err.message;
+    });
+}
+
+function removeSelectedAthlete(){
+    const athleteId = document.getElementById("adminAthleteSelect").value;
+    if(!athleteId || !athletes[athleteId]){
+        showToast("Please select a valid athlete to remove.");
+        return;
+    }
+    const athlete = athletes[athleteId];
+    if(!confirm("Are you sure you want to remove athlete " + athlete.name + " (" + athleteId + ")?")) return;
+
+    Promise.all([
+        db.collection("athletes").doc(athleteId).delete(),
+        db.collection("mealPlans").doc(athleteId).delete()
+    ]).then(() => {
+        showToast("Athlete profile removed successfully.");
+    }).catch(err => console.error("Error removing athlete:", err));
+}
+
+function refreshNotifications(){
+    const container = document.getElementById("notificationList");
+    if(!container) return;
+
+    if(notifications.length === 0){
+        container.innerHTML = `<div style="text-align:center;padding:30px;color:#667085;">No athlete notifications yet.</div>`;
+        return;
+    }
+
+    container.innerHTML = "";
+    notifications.forEach(notification => {
+        const div = document.createElement("div");
+        div.className = "notification " + (notification.read ? "" : "unread");
+        const postCollected = notification.postMeal && notification.postMeal.status === "Post-Meal Collected";
+
+        div.innerHTML = `
+            <h4>🔔 ${escapeHTML(notification.athleteName)} (${escapeHTML(notification.athleteId)})</h4>
+            <div class="notification-line">🏐 <strong>${escapeHTML(notification.sport)}</strong> | ${escapeHTML(notification.training)}</div>
+            <div class="notification-line">💧 <strong>${escapeHTML(notification.hydration.status)}</strong> — Urine Colour: ${notification.hydration.colour} | ${notification.hydration.time}</div>
+            <div class="notification-line">🥗 <strong>Pre-Meal Collected</strong> | ${notification.preMeal.time}</div>
+            <div class="notification-line">🍱 <strong class="${postCollected ? "done-text" : "pending-text"}">${postCollected ? "Post-Meal Collected" : "Post-Meal Pending"}</strong> ${postCollected ? " | " + notification.postMeal.time : ""}</div>
+            <div class="notification-line" style="font-size:11px;color:#667085;">Created: ${notification.createdAt}</div>
+            <div class="notification-actions">
+                ${notification.read ? "" : `<button class="btn-primary" onclick="markNotificationRead('${notification.firebaseId}')">✓ Mark Read</button>`}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function markNotificationRead(firebaseId){
+    if(!db) return;
+    db.collection("notifications").doc(firebaseId).update({ read: true })
+      .catch(err => console.error("Error marking notification read:", err));
+}
+
+function clearNotifications(){
+    if(!confirm("Clear all notifications?") || !db) return;
+    const batch = db.batch();
+    notifications.forEach(n => {
+        batch.delete(db.collection("notifications").doc(n.firebaseId));
+    });
+    batch.commit().catch(err => console.error("Error clearing notifications:", err));
+}
+
+function loadPlanForEditing(){
+    const athleteSelect2 = document.getElementById("adminAthleteSelect2");
+    const daySelect = document.getElementById("adminDaySelect");
+    if(!athleteSelect2 || !daySelect) return;
+
+    const athleteId = athleteSelect2.value;
+    const day = daySelect.value;
+
+    if(!athleteId || !day || !mealPlans[athleteId]) return;
+    const plan = mealPlans[athleteId][day] || { training: "", pre: "", post: "" };
+
+    document.getElementById("editTraining").value = plan.training;
+    document.getElementById("editPre").value = plan.pre;
+    document.getElementById("editPost").value = plan.post;
+    displayAdminWeeklyPlan();
+}
+
+function savePlan(){
+    const athleteSelect2 = document.getElementById("adminAthleteSelect2");
+    const daySelect = document.getElementById("adminDaySelect");
+    if(!athleteSelect2 || !daySelect || !db) return;
+
+    const athleteId = athleteSelect2.value;
+    const day = daySelect.value;
+    if(!athleteId || !day) return;
+
+    if(!mealPlans[athleteId]) mealPlans[athleteId] = createDefaultPlans();
+    
+    mealPlans[athleteId][day] = {
+        training: document.getElementById("editTraining").value.trim(),
+        pre: document.getElementById("editPre").value.trim(),
+        post: document.getElementById("editPost").value.trim()
+    };
+
+    db.collection("mealPlans").doc(athleteId).set({ days: mealPlans[athleteId] }, { merge: true }).then(() => {
+        document.getElementById("savePlanMessage").textContent = "✓ Plan saved successfully for " + day;
+        showToast("Athlete nutrition plan updated.");
+    }).catch(err => console.error("Error saving plan:", err));
+}
+
+function displayAdminWeeklyPlan(){
+    const athleteSelect2 = document.getElementById("adminAthleteSelect2");
+    const container = document.getElementById("adminWeeklyPlan");
+    if(!athleteSelect2 || !container) return;
+
+    const athleteId = athleteSelect2.value;
+    if(!athleteId || !athletes[athleteId]){
+        container.innerHTML = "<p style='color:#667085;font-size:13px;'>No athlete selected.</p>";
+        return;
+    }
+
+    const athlete = athletes[athleteId];
+    let html = `
+        <div style="margin-bottom:12px;font-size:13px;color:#475467;">
+            <strong>${escapeHTML(athlete.name)}</strong> | ${escapeHTML(athlete.id)} | ${escapeHTML(athlete.sport)}
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Day</th><th>Training</th><th>Pre-Workout Meal</th><th>Post-Workout Meal</th></tr>
+                </thead>
+                <tbody>
+    `;
+
+    days.forEach(day => {
+        const plan = mealPlans[athleteId] && mealPlans[athleteId][day] ? mealPlans[athleteId][day] : { training: "", pre: "", post: "" };
+        html += `
+            <tr>
+                <td><strong>${day}</strong></td>
+                <td>${escapeHTML(plan.training)}</td>
+                <td>${escapeHTML(plan.pre)}</td>
+                <td>${escapeHTML(plan.post)}</td>
+            </tr>
+        `;
+    });
+
+    html += `</tbody></table></div>`;
+    container.innerHTML = html;
+}
+
+/* =========================================================
+   UTILITIES & EVENT LISTENERS
+========================================================= */
+function escapeHTML(value){
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function showToast(message){
+    const toast = document.getElementById("toast");
+    if(!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => { toast.classList.remove("show"); }, 2500);
+}
+
+// Event Listeners setup
+document.addEventListener("DOMContentLoaded", () => {
+    const adminSel2 = document.getElementById("adminAthleteSelect2");
+    if(adminSel2) adminSel2.addEventListener("change", loadPlanForEditing);
+
+    const adminDaySel = document.getElementById("adminDaySelect");
+    if(adminDaySel) adminDaySel.addEventListener("change", loadPlanForEditing);
+
+    const athletePwd = document.getElementById("athletePassword");
+    if(athletePwd){
+        athletePwd.addEventListener("keydown", (e) => { if(e.key === "Enter") verifyAthlete(); });
+    }
+
+    const adminPwd = document.getElementById("adminPassword");
+    if(adminPwd){
+        adminPwd.addEventListener("keydown", (e) => { if(e.key === "Enter") verifyAdmin(); });
+    }
+
+    hideAllScreens();
+    document.getElementById("startScreen").classList.remove("hidden");
+    initRealtimeListeners();
+});
+</script>
+
+</body>
+</html>
